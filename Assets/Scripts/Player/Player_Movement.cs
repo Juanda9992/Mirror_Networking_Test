@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Rigidbody rb;
     private float xAxis, zAxis;
+
+    [Header("Jumping Settings")]
+    [SerializeField] private float jumpForce;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     void Update()
     {
