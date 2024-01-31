@@ -1,25 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class Camera_Follow : MonoBehaviour
+public class Camera_Follow : NetworkBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotSpeed;
-    private Transform followPos;
+    [SerializeField]private Transform followPos;
+
     void Start()
     {
-        followPos = GameObject.FindWithTag("Camera_Follow").transform;
-    }
-
-    void Update()
-    {
-        if(followPos == null)
+        if(!isOwned)
         {
-            followPos = GameObject.FindWithTag("Camera_Follow").transform;
-        }
+            Destroy(gameObject);
+        }        
     }
-
     void LateUpdate()
     {
         if(followPos != null)

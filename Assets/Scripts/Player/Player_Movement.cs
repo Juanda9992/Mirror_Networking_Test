@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class Player_Movement : MonoBehaviour
+public class Player_Movement : NetworkBehaviour
 {
+    
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private Rigidbody rb;
@@ -16,6 +18,7 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {
+        if(!isOwned) return;
         xAxis = Input.GetAxisRaw("Horizontal");
         zAxis = Input.GetAxisRaw("Vertical");
 
