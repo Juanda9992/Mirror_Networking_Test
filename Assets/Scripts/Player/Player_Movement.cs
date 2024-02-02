@@ -64,4 +64,9 @@ public class Player_Movement : NetworkBehaviour
             onCrown = false;
         }        
     }
+
+    public override void OnStartLocalPlayer()
+    {
+        Debug.Log("Player connected");
+    }
 }
