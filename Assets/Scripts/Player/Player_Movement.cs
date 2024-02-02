@@ -16,6 +16,7 @@ public class Player_Movement : NetworkBehaviour
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     private bool canJump = false;
     private bool onCrown = false;
+    public bool canControl = true;
 
     void Update()
     {
@@ -41,12 +42,21 @@ public class Player_Movement : NetworkBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(xAxis* moveSpeed,rb.velocity.y,zAxis* moveSpeed) ;     
-        if(canJump)
+        if(canControl)
         {
-            canJump = false;
-            rb.velocity = new Vector3(rb.velocity.x,jumpForce,rb.velocity.z);
-        }   
+            rb.velocity = new Vector3(xAxis* moveSpeed,rb.velocity.y,zAxis* moveSpeed) ;     
+            if(canJump)
+            {
+                canJump = false;
+                rb.velocity = new Vector3(rb.velocity.x,jumpForce,rb.velocity.z);
+            }   
+        }
+    }
+
+    public void SetRagdoll()
+    {
+        canControl = false;
+        rb.freezeRotation = false;
     }
 
     void OnTriggerEnter(Collider other)
