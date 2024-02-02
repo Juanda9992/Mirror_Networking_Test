@@ -18,6 +18,9 @@ public class Player_Movement : NetworkBehaviour
     private bool onCrown = false;
     public bool canControl = true;
 
+    private bool isFalling;
+    private Vector3 initialPos;
+
     void Update()
     {
         if(!isOwned) return;
@@ -33,6 +36,28 @@ public class Player_Movement : NetworkBehaviour
         {
             GetCrown();
         }
+        if(transform.position.y < -15 && !isFalling)
+        {
+            isFalling = true;
+            StartCoroutine("ResetPos");
+        }
+    }
+
+    private IEnumerator ResetPos()
+    {
+        yield return new WaitForSeconds(1.5f);
+        transform.position = initialPos;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        isFalling = false;
+        ResetRagDoll();
+    }
+
+    private void ResetRagDoll()
+    {
+        rb.freezeRotation = true;
+        transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.y);
+        rb.velocity = Vector3.zero;
+        canControl = true;
     }
     [Command]
     private void GetCrown()
@@ -57,6 +82,7 @@ public class Player_Movement : NetworkBehaviour
     {
         canControl = false;
         rb.freezeRotation = false;
+        Invoke("ResetRagDoll",2);
     }
 
     void OnTriggerEnter(Collider other)
@@ -77,6 +103,7 @@ public class Player_Movement : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        initialPos = transform.position;
         Debug.Log("Player connected");
     }
 }
