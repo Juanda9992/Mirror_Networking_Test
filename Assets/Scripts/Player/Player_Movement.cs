@@ -15,6 +15,7 @@ public class Player_Movement : NetworkBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     private bool canJump = false;
+    private bool onCrown = false;
 
     void Update()
     {
@@ -26,6 +27,16 @@ public class Player_Movement : NetworkBehaviour
         {
             canJump = true;
         }
+
+        if(Input.GetKeyDown(KeyCode.E) && onCrown)
+        {
+            GetCrown();
+        }
+    }
+    [Command]
+    private void GetCrown()
+    {
+        GameObject.FindObjectOfType<Crown>().GetCrownCmd();
     }
 
     void FixedUpdate()
@@ -36,5 +47,21 @@ public class Player_Movement : NetworkBehaviour
             canJump = false;
             rb.velocity = new Vector3(rb.velocity.x,jumpForce,rb.velocity.z);
         }   
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Crown"))
+        {
+            onCrown = true;
+        }        
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Crown"))
+        {
+            onCrown = false;
+        }        
     }
 }
