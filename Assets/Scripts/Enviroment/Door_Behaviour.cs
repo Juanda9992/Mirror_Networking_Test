@@ -8,6 +8,7 @@ public class Door_Behaviour : NetworkBehaviour
 {
     [SerializeField] private Transform doorTransform;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private AudioSource door;
     private Vector3 initialPos;
     private Vector3 finalPos;
     [SyncVar]
@@ -40,6 +41,6 @@ public class Door_Behaviour : NetworkBehaviour
     [ClientRpc]
     public void CloseClientRpc()
     {
-        doorTransform.DOMoveY(initialPos.y,moveSpeed);
+        doorTransform.DOMoveY(initialPos.y,moveSpeed).OnComplete(()=>door.Play());
     }
 }
