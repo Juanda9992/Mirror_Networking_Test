@@ -94,6 +94,7 @@ public class Player_Movement : NetworkBehaviour
         if(other.CompareTag("Crown"))
         {
             onCrown = true;
+            other.transform.GetChild(0).gameObject.SetActive(true);
         }        
     }
 
@@ -102,6 +103,7 @@ public class Player_Movement : NetworkBehaviour
         if(other.CompareTag("Crown"))
         {
             onCrown = false;
+            other.transform.GetChild(0).gameObject.SetActive(false);
         }        
     }
 
