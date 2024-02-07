@@ -399,6 +399,7 @@ MonoBehaviour:
   jumpForce: 5
   jumpKey: 32
   thisSource: {fileID: 6327096877677456614}
+  teleportAudio: {fileID: 8300000, guid: fb1953399225c684789989b165dc6250, type: 3}
   canControl: 1
 --- !u!82 &6327096877677456614
 AudioSource:

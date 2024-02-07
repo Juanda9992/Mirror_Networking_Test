@@ -15,6 +15,7 @@ public class Player_Movement : NetworkBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private AudioSource thisSource;
+    [SerializeField] private AudioClip teleportAudio;
     private bool canJump = false;
     private bool onCrown = false;
     public bool canControl = true;
@@ -46,6 +47,7 @@ public class Player_Movement : NetworkBehaviour
 
     private IEnumerator ResetPos()
     {
+        thisSource.PlayOneShot(teleportAudio);
         yield return new WaitForSeconds(1.5f);
         transform.position = initialPos;
         transform.rotation = Quaternion.Euler(Vector3.zero);
