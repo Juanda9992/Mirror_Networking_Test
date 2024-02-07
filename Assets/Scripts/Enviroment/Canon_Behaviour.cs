@@ -17,6 +17,7 @@ public class Canon_Behaviour : NetworkBehaviour
         {
             currentBall = Instantiate(ballPrefab,transform.position,Quaternion.identity);
         }
+        currentBall.transform.position = transform.position;
         currentBall.GetComponent<Rigidbody>().velocity = transform.forward * shootForce;
     }
 }

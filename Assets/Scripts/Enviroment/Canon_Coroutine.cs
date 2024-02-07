@@ -20,7 +20,7 @@ public class Canon_Coroutine : NetworkBehaviour
             for(int i = 0; i< canonCoroutine.Length;i++)
             {
                 canonCoroutine[i].Shoot();
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(1);
             }
         }
     }
