@@ -14,6 +14,7 @@ public class Player_Movement : NetworkBehaviour
     [Header("Jumping Settings")]
     [SerializeField] private float jumpForce;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private AudioSource thisSource;
     private bool canJump = false;
     private bool onCrown = false;
     public bool canControl = true;
@@ -83,6 +84,7 @@ public class Player_Movement : NetworkBehaviour
         canControl = false;
         rb.freezeRotation = false;
         Invoke("ResetRagDoll",2);
+        thisSource.Play();
     }
 
     void OnTriggerEnter(Collider other)
