@@ -25,7 +25,7 @@ public class Player_Movement : NetworkBehaviour
 
     void Update()
     {
-        if(!isOwned) return;
+        if(!isLocalPlayer) return;
         xAxis = Input.GetAxisRaw("Horizontal");
         zAxis = Input.GetAxisRaw("Vertical");
 
@@ -44,6 +44,16 @@ public class Player_Movement : NetworkBehaviour
             StartCoroutine("ResetPos");
         }
     }
+
+    [ClientRpc]
+    public void MoveClientRpc(Vector3 newPos,Vector3 rot)
+    {
+        if(!isLocalPlayer)
+        {
+            transform.position = newPos;
+            transform.rotation = Quaternion.Euler(rot); 
+        }
+    } 
 
     private IEnumerator ResetPos()
     {
@@ -70,6 +80,8 @@ public class Player_Movement : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if(!isLocalPlayer) return;
+
         if(canControl)
         {
             rb.velocity = new Vector3(xAxis* moveSpeed,rb.velocity.y,zAxis* moveSpeed) ;     
@@ -110,6 +122,5 @@ public class Player_Movement : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         initialPos = transform.position;
-        Debug.Log("Player connected");
     }
 }
