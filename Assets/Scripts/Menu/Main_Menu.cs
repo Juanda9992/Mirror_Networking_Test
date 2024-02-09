@@ -10,6 +10,7 @@ public class Main_Menu : MonoBehaviour
     [SerializeField] private TMP_InputField nameInput;
     [SerializeField] private Button startButton;
     [SerializeField] private NetworkManager networkManager;
+    [SerializeField] private GameObject lobbyMenu;
     void Awake()
     {
         nameInput.onValueChanged.AddListener((string text)=>startButton.interactable = text.Length > 0);
@@ -20,6 +21,8 @@ public class Main_Menu : MonoBehaviour
 
     private void Connect()
     {
-        networkManager.Start();
+        Player_Name.playerName = nameInput.text;
+        gameObject.SetActive(false);
+        lobbyMenu.SetActive(true);
     }
 }

@@ -4590,6 +4590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishObj: {fileID: 1854704935}
+  getText: {fileID: 364485672}
 --- !u!1001 &1671535401
 PrefabInstance:
   m_ObjectHideFlags: 0
